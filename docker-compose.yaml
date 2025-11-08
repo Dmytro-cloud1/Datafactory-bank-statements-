@@ -4,11 +4,12 @@ services:
     build: .
     container_name: bank-statements
     environment:
-      - port=3306
-      - host=db
-      - password=Dima2008g!
-      - user=root
-      - db_name=datafactory
+      - port=${port}
+      - host=${host_fastapi}
+      - password=${password}
+      - user=${user}
+      - db_name=${db_name}
+      - INIT_DB= ${INIT_DB}
     ports: 
       - "8000:8000"
 
@@ -16,10 +17,10 @@ services:
     image: mysql:8.0
     container_name: bank-statements_db
     environment:
-      - port=3307
-      - host=localhost
-      - user=root
-      - MYSQL_ROOT_PASSWORD=Dima2008g!
-      - MYSQL_DATABASE=datafactory
+      - port=${port_1}
+      - host=${host_mysql}
+      - user=${user}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
     ports:
       - "3307:3306"

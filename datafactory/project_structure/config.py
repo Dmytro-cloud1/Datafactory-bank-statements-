@@ -1,3 +1,3 @@
+import os
 
-
-INIT_DB= True
+INIT_DB= os.getenv("INIT_DB")
