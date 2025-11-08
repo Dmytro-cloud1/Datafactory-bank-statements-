@@ -1,11 +1,11 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 from structure_of_db import Payments, Plans, Credits, session
 from datetime import datetime
 from sqlalchemy import func, extract
 
-app = FastAPI()
+router_extra = APIRouter(prefix="/extra")
 
-@app.get('/plans_performance/{date_str}')
+@router_extra.get('/plans_performance/{date_str}')
 def get_info_plans(date_str: str):
     try:
         day = datetime.strptime(date_str, "%d.%m.%Y").date()
@@ -57,7 +57,7 @@ def get_info_plans(date_str: str):
     return result
 
 
-@app.get("/year_performance/{year_str}")
+@router_extra.get("/year_performance/{year_str}")
 def get_year_perfomance(year_str: str):
     try:
         year = datetime.strptime(year_str, "%m.%Y").year

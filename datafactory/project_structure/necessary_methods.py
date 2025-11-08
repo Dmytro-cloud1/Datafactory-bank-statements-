@@ -1,12 +1,12 @@
-from fastapi import FastAPI, HTTPException, UploadFile
+from fastapi import APIRouter, HTTPException, UploadFile
 from structure_of_db import  Credits, session, Plans, Dictionary
 from datetime import date
 import pandas as pd
 
 
-app = FastAPI(title="DataFactory API")
+router = APIRouter(prefix="/main")
 
-@app.get('/user_credits/{user_id}')
+@router.get('/user_credits/{user_id}')
 def get_user_credits(user_id: int):
     credits = session.query(Credits).filter(Credits.id == user_id).all()
 
@@ -50,7 +50,7 @@ def get_user_credits(user_id: int):
 
     return result
 
-@app.post("/plans_insert")
+@router.post("/plans_insert")
 def plans_insert(exel_file: UploadFile):
     df = pd.read_excel(exel_file.file)
 

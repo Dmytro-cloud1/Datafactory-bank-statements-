@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    container_name: bank-statements
+    environment:
+      - port=3306
+      - host=db
+      - password=Dima2008g!
+      - user=root
+      - db_name=datafactory
+    ports: 
+      - "8000:8000"
+
+  db:
+    image: mysql:8.0
+    container_name: bank-statements_db
+    environment:
+      - port=3307
+      - host=localhost
+      - user=root
+      - MYSQL_ROOT_PASSWORD=Dima2008g!
+      - MYSQL_DATABASE=datafactory
+    ports:
+      - "3307:3306"

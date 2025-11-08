@@ -4,6 +4,7 @@ from datetime import datetime
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Date, Float
 from sqlalchemy.orm import Session, declarative_base, relationship
 from dotenv import load_dotenv
+from config import INIT_DB
 
 load_dotenv()
         
@@ -114,13 +115,14 @@ def load_csv_to_db(session: Session, model, csv_file: str, delimiter='\t'):
     # где каждая строка — это словарь с колонками как ключи.
     objects = [model(**row) for row in df.to_dict(orient="records")] 
     
-    # session.add_all(objects)
-    # session.commit()
+    session.add_all(objects)
+    session.commit()
     print(f"✅ Загружено {len(objects)} записей из {csv_file}")
 
 
-load_csv_to_db(session, Users, users_csv, delimiter='\t')
-load_csv_to_db(session, Credits, credits_csv, delimiter='\t')
-load_csv_to_db(session, Dictionary, dictionary_csv, delimiter='\t')
-load_csv_to_db(session, Plans, plans_csv, delimiter='\t')
-load_csv_to_db(session, Payments, payments_csv, delimiter='\t')
+if INIT_DB:
+    load_csv_to_db(session, Users, users_csv, delimiter='\t')
+    load_csv_to_db(session, Credits, credits_csv, delimiter='\t')
+    load_csv_to_db(session, Dictionary, dictionary_csv, delimiter='\t')
+    load_csv_to_db(session, Plans, plans_csv, delimiter='\t')
+    load_csv_to_db(session, Payments, payments_csv, delimiter='\t')
