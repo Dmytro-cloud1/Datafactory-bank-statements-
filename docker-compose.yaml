@@ -1,15 +1,14 @@
-version: '3.8'
 services:
   web:
     build: .
     container_name: bank-statements
     environment:
       - port=${port}
-      - host=${host_fastapi}
+      - host=db
       - password=${password}
       - user=${user}
       - db_name=${db_name}
-      - INIT_DB= ${INIT_DB}
+      - INIT_DB=${INIT_DB}
     ports: 
       - "8000:8000"
 

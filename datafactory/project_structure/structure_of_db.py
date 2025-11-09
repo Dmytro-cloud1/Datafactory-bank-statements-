@@ -68,6 +68,9 @@ class Payments(Base):
     connect_type = relationship(Dictionary, backref='payments')
 
 
+if INIT_DB:
+    Base.metadata.drop_all(engine)
+
 Base.metadata.create_all(engine)
 
 session = Session(engine)
